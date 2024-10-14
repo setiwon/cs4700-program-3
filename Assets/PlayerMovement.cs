@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public float speed = 10;
+    public float speed = 100;
     public Rigidbody2D rb;
     // Update is called once per frame
     void Update()
