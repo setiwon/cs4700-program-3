@@ -5,3 +5,4 @@ ProjectSettings/
 Temp/
 Usersettings/
 *.sln
+Assembly-CSharp.csproj
