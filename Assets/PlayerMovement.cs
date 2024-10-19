@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     //to initialize instance variables.
     void Start()
     {
-        speed = 50f; // Initialize speed
+        speed = 36f; // Initialize speed
         rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component
 
         // Load the player's last position from PlayerData

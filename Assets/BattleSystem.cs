@@ -22,9 +22,9 @@ public class BattleSystem : MonoBehaviour
     public Button runButton;
 
     // Player stats
-    private int playerLevel = 1;
-    private int playerHealth = 100;
-    private int playerExperience = 0;
+    private int playerLevel;
+    private int playerHealth;
+    private int playerExperience;
     private const int EXP_TO_LEVEL_UP = 40; // Experience needed to level up
     private int enemyHealth = 50;
     private const int ENEMY_EXP_REWARD = 20; // Experience awarded for defeating an enemy
@@ -41,6 +41,13 @@ public class BattleSystem : MonoBehaviour
 
     void Start()
     {
+        // Load player stats from PlayerData
+        PlayerData playerData = FindObjectOfType<PlayerData>();
+        if (playerData != null)
+        {
+            playerData.GetPlayerStats(out playerLevel, out playerHealth, out playerExperience); // Retrieve player stats
+        }
+
         // Assign the appropriate functions to the buttons
         fightButton.onClick.AddListener(Fight);
         guardButton.onClick.AddListener(Guard);
@@ -173,6 +180,13 @@ public class BattleSystem : MonoBehaviour
     private void Victory()
     {
         Debug.Log("Returning to the main scene...");
+
+        // Save player stats back to PlayerData
+        PlayerData playerData = FindObjectOfType<PlayerData>();
+        if (playerData != null)
+        {
+            playerData.SavePlayerStats(playerLevel, playerHealth, playerExperience); // Save player stats
+        }
 
         // Load the main scene
         SceneManager.LoadScene("MainScreen"); // Load the MainScreen scene
