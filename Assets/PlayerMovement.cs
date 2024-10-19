@@ -2,7 +2,7 @@
 *file: PlayerMovement.cs
 *author: Joseph Setiawan and Carlos Castillos
 *class: CS 4700 – Game Development
-*assignment: Program Assignment
+*assignment: Program 3
 *date last modified: 10/18/2024
 *
 *purpose: This script controls the player movement in a maze
@@ -12,6 +12,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // Import the SceneManager
 
 public class PlayerMovement : MonoBehaviour 
 {
@@ -25,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     //to initialize instance variables.
     void Start()
     {
-        speed = 100f; // Initialize speed
+        speed = 50f; // Initialize speed
         rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component
     }
 
@@ -67,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
     //purpose: This function is called when a random encounter occurs.
     private void StartEncounter()
     {
-        // Trigger encounter logic here (e.g., start a battle)
         Debug.Log("Encounter started!");
+        SceneManager.LoadScene("BattleScene"); // Load the Battle Scene (make sure the name matches)
     }
 }
