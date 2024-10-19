@@ -22,13 +22,11 @@ public class PlayerData : MonoBehaviour
     public int playerHealth = 100;
     public int playerExperience = 0;
 
-    // Awake is called when the script instance is being loaded
     void Awake()
     {
-        // Check if there is already an instance of PlayerData
         if (instance == null)
         {
-            instance = this; // Set this as the instance
+            instance = this;
             DontDestroyOnLoad(gameObject); // Don't destroy this object when loading new scenes
         }
         else
@@ -60,12 +58,10 @@ public class PlayerData : MonoBehaviour
         Debug.Log("Player stats saved: Level: " + playerLevel + ", Health: " + playerHealth + ", Experience: " + playerExperience);
     }
 
-    // Function to get player stats
-    public void GetPlayerStats(out int level, out int health, out int experience)
+    // Function to load player stats
+    public void LoadPlayerStats()
     {
-        level = playerLevel;
-        health = playerHealth;
-        experience = playerExperience;
-        Debug.Log("Player stats retrieved: Level: " + level + ", Health: " + health + ", Experience: " + experience);
+        Debug.Log("Player stats loaded: Level: " + playerLevel + ", Health: " + playerHealth + ", Experience: " + playerExperience);
     }
 }
+
