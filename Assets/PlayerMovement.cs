@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb; // Rigidbody2D component for physics
     private const float ENCOUNTER_CHANCE = 0.1f; // Probability of encountering an enemy (constant)
 
+    // Define a starting position (change these values to your desired starting location)
+    private Vector3 startingPosition = new Vector3(-7, -3, 0); // Example starting position
+
     //function: Start
     //purpose: This function is called before the first frame update
     //to initialize instance variables.
@@ -31,9 +34,13 @@ public class PlayerMovement : MonoBehaviour
 
         // Load the player's last position from PlayerData
         PlayerData playerData = FindObjectOfType<PlayerData>();
-        if (playerData != null)
+        if (playerData != null && playerData.GetLastPosition() != Vector3.zero)
         {
             transform.position = playerData.GetLastPosition(); // Set player position to last saved position
+        }
+        else
+        {
+            transform.position = startingPosition; // Set to starting position if no last position is saved
         }
     }
 
