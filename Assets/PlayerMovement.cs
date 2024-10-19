@@ -28,6 +28,13 @@ public class PlayerMovement : MonoBehaviour
     {
         speed = 50f; // Initialize speed
         rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component
+
+        // Load the player's last position from PlayerData
+        PlayerData playerData = FindObjectOfType<PlayerData>();
+        if (playerData != null)
+        {
+            transform.position = playerData.GetLastPosition(); // Set player position to last saved position
+        }
     }
 
     //function: Update
@@ -59,6 +66,13 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Random.value < ENCOUNTER_CHANCE) // Random chance for encounter
             {
+                // Save the player's current position before starting the encounter
+                PlayerData playerData = FindObjectOfType<PlayerData>();
+                if (playerData != null)
+                {
+                    playerData.SavePosition(transform.position); // Save the player's current position
+                }
+
                 StartEncounter();
             }
         }

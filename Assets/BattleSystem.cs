@@ -114,10 +114,22 @@ public class BattleSystem : MonoBehaviour
         if (currentState != BattleState.PlayerTurn) return;
 
         Debug.Log("Run action selected");
-        if (Random.value < 0.5f) // 50% chance to escape
+        float escapeChance = Random.value; // Generate a random value
+        Debug.Log($"Random value for escape: {escapeChance}");
+        
+        if (escapeChance < 0.5f) // 50% chance to escape
         {
             currentState = BattleState.BattleOver; // End the battle
             Debug.Log("Player escaped successfully!");
+
+            // Save the player's last position before returning
+            PlayerData playerData = FindObjectOfType<PlayerData>();
+            if (playerData != null)
+            {
+                playerData.SavePosition(transform.position); // Save the current position
+            }
+
+            Victory(); // Call the Victory function to load the main screen
         }
         else
         {
@@ -160,8 +172,7 @@ public class BattleSystem : MonoBehaviour
     // Victory function
     private void Victory()
     {
-        Debug.Log("Victory! Returning to the main scene...");
-        // You can add any victory message UI here if desired
+        Debug.Log("Returning to the main scene...");
 
         // Load the main scene
         SceneManager.LoadScene("MainScreen"); // Load the MainScreen scene
@@ -179,5 +190,7 @@ public class BattleSystem : MonoBehaviour
     {
         playerStatsText.text = $"Player    Lvl   HP      Exp\n" +
                                 $"{playerLevel}         {playerHealth}    {playerExperience}";
+
+        Debug.Log("Player Stats Updated: " + playerStatsText.text);
     }
 }
