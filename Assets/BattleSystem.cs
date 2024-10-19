@@ -77,12 +77,13 @@ public class BattleSystem : MonoBehaviour
         {
             Debug.LogError("Battlelogue GameObject is not assigned!");
         }
+        
         UpdateBattleLogue("Enemy encountered!");
         UpdateBattleLogue("Your turn");
     }
 
-    
-    // Function for the "Fight" button
+    // Function: Fight
+    // Purpose: Handles player action when the fight button is pressed
     void Fight()
     {
         if (currentState != BattleState.PlayerTurn) return;
@@ -106,7 +107,8 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    // Gain experience and check for level up
+    // Function: GainExperience
+    // Purpose: Increases player experience and checks for level up
     private void GainExperience(int amount)
     {
         playerExperience += amount;
@@ -119,7 +121,8 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    // Handle player leveling up
+    // Function: LevelUp
+    // Purpose: Handles player leveling up, restoring health and increasing level
     private void LevelUp()
     {
         playerLevel++;
@@ -128,7 +131,8 @@ public class BattleSystem : MonoBehaviour
         UpdateBattleLogue($"Player leveled up to Level {playerLevel}! HP restored to {playerHealth}.");
     }
 
-    // Function for the "Guard" button
+    // Function: Guard
+    // Purpose: Handles player action when the guard button is pressed
     void Guard()
     {
         if (currentState != BattleState.PlayerTurn) return;
@@ -139,7 +143,8 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(EnemyTurn());
     }
 
-    // Function for the "Run" button
+    // Function: Run
+    // Purpose: Handles player action when the run button is pressed
     void Run()
     {
         if (currentState != BattleState.PlayerTurn) return;
@@ -169,7 +174,8 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    // Coroutine for the enemy's turn
+    // Function: EnemyTurn
+    // Purpose: Handles the enemy's turn and performs actions against the player
     private IEnumerator EnemyTurn()
     {
         yield return new WaitForSeconds(1); // Simulate delay for enemy action
@@ -199,23 +205,24 @@ public class BattleSystem : MonoBehaviour
         UpdatePlayerStatsText(); // Update stats display after each turn
     }
 
-// Coroutine for Victory
-private IEnumerator Victory()
-{
-    PlayerData playerData = FindObjectOfType<PlayerData>();
-    if (playerData != null)
+    // Function: Victory
+    // Purpose: Handles actions to perform upon winning a battle, saving player stats and transitioning to the main scene
+    private IEnumerator Victory()
     {
-        // Save player stats with current values
-        playerData.SavePlayerStats(playerLevel, playerHealth, playerExperience);
+        PlayerData playerData = FindObjectOfType<PlayerData>();
+        if (playerData != null)
+        {
+            // Save player stats with current values
+            playerData.SavePlayerStats(playerLevel, playerHealth, playerExperience);
+        }
+
+        UpdateBattleLogue("Returning to the main scene...");
+        yield return new WaitForSeconds(3f); // Wait for 3 seconds
+        SceneManager.LoadScene("MainScreen"); // Load the MainScreen scene
     }
 
-    UpdateBattleLogue("Returning to the main scene...");
-    yield return new WaitForSeconds(3f); // Wait for 3 seconds
-    SceneManager.LoadScene("MainScreen"); // Load the MainScreen scene
-}
-
-
-    // Restart the game
+    // Function: RestartGame
+    // Purpose: Restarts the game by reloading the current scene
     private IEnumerator RestartGame()
     {
         UpdateBattleLogue("Restarting game...");
@@ -223,14 +230,16 @@ private IEnumerator Victory()
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
     }
 
-    // Update the player stats text display
+    // Function: UpdatePlayerStatsText
+    // Purpose: Updates the UI text display to show current player stats
     private void UpdatePlayerStatsText()
     {
         playerStatsText.text = $"Player    Lvl   HP      Exp\n" +
                                 $"{playerLevel}         {playerHealth}    {playerExperience}";
     }
 
-    // Function to update the Battlelogue text
+    // Function: UpdateBattleLogue
+    // Purpose: Updates the Battlelogue text with a new message and maintains a limited number of lines
     private void UpdateBattleLogue(string message)
     {
         if (battleLogueText != null)

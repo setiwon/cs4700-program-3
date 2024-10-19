@@ -64,4 +64,3 @@ public class PlayerData : MonoBehaviour
         Debug.Log("Player stats loaded: Level: " + playerLevel + ", Health: " + playerHealth + ", Experience: " + playerExperience);
     }
 }
-
