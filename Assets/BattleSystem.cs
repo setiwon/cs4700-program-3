@@ -77,8 +77,11 @@ public class BattleSystem : MonoBehaviour
         {
             Debug.LogError("Battlelogue GameObject is not assigned!");
         }
+        UpdateBattleLogue("Enemy encountered!");
+        UpdateBattleLogue("Your turn");
     }
 
+    
     // Function for the "Fight" button
     void Fight()
     {
